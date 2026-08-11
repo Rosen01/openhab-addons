@@ -31,6 +31,7 @@ import org.mockito.Mockito;
 import org.openhab.binding.shelly.internal.api.ShellyApiException;
 import org.openhab.binding.shelly.internal.api.ShellyDeviceProfile;
 import org.openhab.binding.shelly.internal.api1.Shelly1ApiJsonDTO.ShellySettingsDevice;
+import org.openhab.binding.shelly.internal.api1.Shelly1ApiJsonDTO.ShellySettingsRoller;
 import org.openhab.binding.shelly.internal.api2.Shelly2ApiJsonDTO.Shelly2DeviceConfig.Shelly2GetConfigResult;
 import org.openhab.binding.shelly.internal.api2.Shelly2ApiJsonDTO.Shelly2DeviceStatus.Shelly2DeviceStatusResult;
 import org.openhab.binding.shelly.internal.api2.Shelly2ApiJsonDTO.Shelly2DeviceStatus.Shelly2DeviceStatusResult.Shelly2DeviceStatusEmData;
@@ -156,6 +157,14 @@ public class Shelly2GetDeviceProfileTest {
         // in_mode must be present so mapValue in addRollerSettings doesn't receive null
         return parseConfig(gson, "{\"sys\":{\"device\":{},\"location\":{},\"ui_data\":{}}," + "\"wifi\":{},"
                 + "\"cover:0\":{\"in_mode\":\"single\",\"invert_directions\":false}}");
+    }
+
+    /** GetConfig with cover:0 including safety_switch and obstruction_detection */
+    private static Shelly2GetConfigResult withCover0SafetyAndObstruction(Gson gson) {
+        return parseConfig(gson, "{\"sys\":{\"device\":{},\"location\":{},\"ui_data\":{}},\"wifi\":{},"
+                + "\"cover:0\":{\"in_mode\":\"single\",\"invert_directions\":false,"
+                + "\"safety_switch\":{\"enable\":true,\"action\":\"stop\"},"
+                + "\"obstruction_detection\":{\"enable\":true,\"action\":\"stop\",\"power_thr\":150,\"holdoff\":2.5}}}");
     }
 
     /** GetConfig with cb:0 present (Pro CB) */
@@ -307,6 +316,29 @@ public class Shelly2GetDeviceProfileTest {
     }
 
     @Test
+    void discoveryRollerSafetySwitchAndObstructionMapped() throws ShellyApiException {
+        Gson gson = new Gson();
+        StubApiClient client = new StubApiClient(discoveryConfig(), withCover0SafetyAndObstruction(gson));
+        ShellyDeviceProfile profile = client.getDeviceProfile(THING_TYPE_SHELLYUNKNOWN, deviceInfo());
+        ShellySettingsRoller roller = Objects.requireNonNull(profile.settings.rollers).get(0);
+        assertThat(roller.safetySwitch, is(true));
+        assertThat(roller.safetyAction, is("stop"));
+        assertThat(roller.obstacleAction, is("stop"));
+        assertThat(roller.obstaclePower, is(150));
+        assertThat(roller.obstacleDelay, is(2));
+    }
+
+    @Test
+    void discoveryRollerWithoutSafetySwitchOrObstructionLeavesFieldsNull() throws ShellyApiException {
+        Gson gson = new Gson();
+        StubApiClient client = new StubApiClient(discoveryConfig(), withCover0(gson));
+        ShellyDeviceProfile profile = client.getDeviceProfile(THING_TYPE_SHELLYUNKNOWN, deviceInfo());
+        ShellySettingsRoller roller = Objects.requireNonNull(profile.settings.rollers).get(0);
+        assertThat(roller.safetySwitch, is(nullValue()));
+        assertThat(roller.obstacleAction, is(nullValue()));
+    }
+
+    @Test
     void discoveryCB0PresentIsCBTrue() throws ShellyApiException {
         Gson gson = new Gson();
         StubApiClient client = new StubApiClient(discoveryConfig(), withCb0(gson));
@@ -396,6 +428,32 @@ public class Shelly2GetDeviceProfileTest {
         client.getDeviceProfile(THING_TYPE_SHELLYPLUS1PM, deviceInfo());
 
         assertThat("relay ison preserved across profile refresh", profile.status.relays.get(0).ison, is(true));
+    }
+
+    @Test
+    void fwVersionFallsBackToVerWhenFwIdHasNoSemver() throws ShellyApiException {
+        // Regression test for the Power Strip 4 / EM Mini G4 missing-firmware-channel bug:
+        // newer Gen4 app builds report a date/hash-only fw_id (no embedded semver), so
+        // extractFwVersion(fw) returns "" and initProfile() must fall back to the "ver" field.
+        Gson gson = new Gson();
+        ShellySettingsDevice dev = deviceInfo();
+        dev.fw = "20250819-150404/ga0def2d";
+        dev.ver = "1.7.99-powerstripg4prod1";
+        StubApiClient client = new StubApiClient(discoveryConfig(), minimalConfig(gson));
+        ShellyDeviceProfile profile = client.getDeviceProfile(THING_TYPE_SHELLYUNKNOWN, dev);
+        assertThat(profile.fwVersion, is("1.7.99-powerstripg4prod1"));
+    }
+
+    @Test
+    void fwVersionUsesFwIdWhenItAlreadyHasSemver() throws ShellyApiException {
+        // Normal Gen2/3 case: fw_id already embeds a parseable semver — "ver" must not be needed
+        Gson gson = new Gson();
+        ShellySettingsDevice dev = deviceInfo();
+        dev.fw = "20230913-112003/v1.14.0-gcb84623";
+        dev.ver = "";
+        StubApiClient client = new StubApiClient(discoveryConfig(), minimalConfig(gson));
+        ShellyDeviceProfile profile = client.getDeviceProfile(THING_TYPE_SHELLYUNKNOWN, dev);
+        assertThat(profile.fwVersion, is("1.14.0"));
     }
 
     @Test
