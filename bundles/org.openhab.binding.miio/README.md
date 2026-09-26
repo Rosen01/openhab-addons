@@ -528,6 +528,7 @@ Currently the miio binding supports more than 370 different models.
 | Mi Smart Ultra Electricity Saving Air Conditioner (1HP/Inverter/New China Energy Label Level 1) | miio:basic       | [xiaomi.aircondition.mt7](#xiaomi-aircondition-mt7) | Experimental | Experimental support. Please report back if all channels are functional. Preferably share the debug log of property refresh and command responses |
 | Mi Smart Ultra Electricity Saving Air Conditioner (1.5HP/Inverter/New China Energy Label Level 1) | miio:basic       | [xiaomi.aircondition.mt8](#xiaomi-aircondition-mt8) | Experimental | Experimental support. Please report back if all channels are functional. Preferably share the debug log of property refresh and command responses |
 | Mi Wi-Fi Repeater 2                | miio:unsupported | xiaomi.repeater.v2     | No           |            |
+| Xiaomi Robot Vacuum S20+           | miio:basic       | [xiaomi.vacuum.b108gl](#xiaomi-vacuum-b108gl) | Experimental | Experimental support. Please report back if all channels are functional. Preferably share the debug log of property refresh and command responses |
 | Xiaomi Robot Vacuum X20+           | miio:basic       | [xiaomi.vacuum.c102gl](#xiaomi-vacuum-c102gl) | Yes          |            |
 | Mi Network Speaker                 | miio:unsupported | xiaomi.wifispeaker.v1  | No           |            |
 | Uclean Smart Toilet Seat           | miio:basic       | [xjx.toilet.pro](#xjx-toilet-pro) | Experimental | Experimental support. Please report back if all channels are functional. Preferably share the debug log of property refresh and command responses |
@@ -578,6 +579,7 @@ Currently the miio binding supports more than 370 different models.
 | Yeelight Smart LED Bulb 1SE (color) | miio:basic       | [yeelink.light.colora](#yeelink-light-colora) | Yes          |            |
 | Yeelight Smart LED Bulb W3 (color) | miio:basic       | [yeelink.light.colorb](#yeelink-light-colorb) | Yes          |            |
 | Yeelight LED Bulb (Tunable)        | miio:basic       | [yeelink.light.ct2](#yeelink-light-ct2) | Yes          |            |
+| Yeelight Smart Ceiling Fan S2001   | miio:basic       | [yeelink.light.fancl2](#yeelink-light-fancl2) | Yes          |            |
 | Mi LED Desk Lamp                   | miio:basic       | [yeelink.light.lamp1](#yeelink-light-lamp1) | Yes          |            |
 | Mi Smart LED Desk Lamp Pro         | miio:basic       | [yeelink.light.lamp2](#yeelink-light-lamp2) | Yes          |            |
 | Yeelight LED Lamp                  | miio:basic       | [yeelink.light.lamp3](#yeelink-light-lamp3) | Yes          |            |
@@ -859,7 +861,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | working-time               | Number:Time          | Working Time                             |            |
 | on1                        | Switch               | Indicator Light - Switch Status          |            |
 | power-consumption          | Number:Energy        | Daily Power Consumption                  |            |
-| electric-current           | Number:Current       | Power Consumption - Electric Current     |            |
+| electric-current           | Number:ElectricCurrent | Power Consumption - Electric Current     |            |
 | voltage                    | Number:ElectricPotential | Power Consumption - Voltage              |            |
 | electric-power             | Number:Power         | Current Power Consumption - Electric Power |            |
 | on-duration                | Number:Time          | Imilab Timer - On Duration               |            |
@@ -2070,7 +2072,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | volume                     | Number:Dimensionless | Locating Volume                          |            |
 | repeat_state               | Switch               | Sweep - Repeat State                     |            |
 | door_state                 | Number               | Sweep - Door State                       | Value mapping `["0"="None","1"="DustBox","2"="WaterBox","3"="TwoInOne"]` |
-| cloth_state                | Contact              | Sweep - Cloth State                      |            |
+| cloth_state                | Switch               | Sweep - Cloth State                      |            |
 | suction_state              | Number               | Robot Cleaner - Power                    | Value mapping `["0"="Slient","1"="Standard","2"="Medium","3"="Turbo"]` |
 | water_state                | Number               | Sweep - Water State                      | Value mapping `["0"="Low","1"="Mid","2"="High"]` |
 | mop_route                  | Number               | Sweep - Mop Route                        | Value mapping `["0"="S","1"="Y"]` |
@@ -2115,7 +2117,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | build_map                  | Number               | Map - Build Map                          | Value mapping `["0"="None","1"="Build","2"="Clean"]` |
 | has_new_map                | Number               | Map - Has New Map                        | Value mapping `["0"="Without Map To Save","1"="Wait To Rename Map"]` |
 | map_uploads                | Number               | Map - Map Uploads                        | Value mapping `["0"="Upload","1"="Do Not Upload"]` |
-| dnd_enable                 | Contact              | Disturb - Dnd Enable                     |            |
+| dnd_enable                 | Switch               | Disturb - Dnd Enable                     |            |
 | dnd_start_hour             | Number:Time          | Disturb - Dnd Start Hour                 |            |
 | dnd_start_minute           | Number:Time          | Disturb - Dnd Start Minute               |            |
 | dnd_end_hour               | Number:Time          | Disturb - Dnd End Hour                   |            |
@@ -2138,7 +2140,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | volume                     | Number:Dimensionless | Robot Cleaner - Locate Volume            |            |
 | repeat_state               | Switch               | Sweep - Repeat State                     |            |
 | door_state                 | Number               | Sweep - Door State                       | Value mapping `["0"="None","1"="DustBox","2"="WaterBox","3"="TwoInOne"]` |
-| cloth_state                | Contact              | Sweep - Cloth State                      |            |
+| cloth_state                | Switch               | Sweep - Cloth State                      |            |
 | suction_state              | Number               | Robot Cleaner - Power                    | Value mapping `["0"="Slient","1"="Standard","2"="Medium","3"="Turbo"]` |
 | water_state                | Number               | Sweep - Water State                      | Value mapping `["0"="Low","1"="Mid","2"="High"]` |
 | mop_route                  | Number               | Sweep - Mop Route                        | Value mapping `["0"="S","1"="Y"]` |
@@ -2163,7 +2165,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | carpet_avoid               | Switch               | Sweep - Carpet Avoid                     |            |
 | tank_shake                 | Switch               | Sweep - Tank Shake                       |            |
 | shake_shift                | Number               | Sweep - Shake Shift                      | Value mapping `["1"="Low","2"="Mid","3"="High"]` |
-| map_encrypt                | Contact              | Sweep - Map Encrypt                      |            |
+| map_encrypt                | Switch               | Sweep - Map Encrypt                      |            |
 | order_id                   | Number               | Order - Order Id                         |            |
 | enable                     | Switch               | Order - Enable                           |            |
 | day                        | Number:Time          | Order - Day                              |            |
@@ -2187,8 +2189,8 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | map_num                    | Number               | Map - Map Num                            |            |
 | cur_cleaning_path          | String               | Map - Cur Cleaning Path                  |            |
 | build_map                  | Number               | Map - Build Map                          | Value mapping `["0"="None","1"="Build","2"="Clean"]` |
-| has_new_map                | Contact              | Map - Has New Map                        |            |
-| dnd_enable                 | Contact              | Disturb - Dnd Enable                     |            |
+| has_new_map                | Switch               | Map - Has New Map                        |            |
+| dnd_enable                 | Switch               | Disturb - Dnd Enable                     |            |
 | dnd_start_hour             | Number:Time          | Disturb - Dnd Start Hour                 |            |
 | dnd_start_minute           | Number:Time          | Disturb - Dnd Start Minute               |            |
 | dnd_end_hour               | Number:Time          | Disturb - Dnd End Hour                   |            |
@@ -3517,7 +3519,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Air Conditioner A (1.5HP / Inverter / China Energy Label Level 1) (<a name="xiaomi-aircondition-mc2">xiaomi.aircondition.mc2</a>) Channels
@@ -3541,7 +3543,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Air Conditioner A (1HP / Inverter / China Energy Label Level <1) (<a name="xiaomi-aircondition-mc4">xiaomi.aircondition.mc4</a>) Channels
@@ -3565,7 +3567,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Air Conditioner A (1.5HP / Inverter / China Energy Label Level <1) (<a name="xiaomi-aircondition-mc5">xiaomi.aircondition.mc5</a>) Channels
@@ -3589,7 +3591,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Vertical Air Conditioner A (2HP / Inverter / China Energy Label Level <1) (<a name="xiaomi-aircondition-mc6">xiaomi.aircondition.mc6</a>) Channels
@@ -3613,7 +3615,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Vertical Air Conditioner A (3HP / Inverter / China Energy Label Level <1) (<a name="xiaomi-aircondition-mc7">xiaomi.aircondition.mc7</a>) Channels
@@ -3637,7 +3639,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Ultra Electricity Saving Air Conditioner(1.5HP/Inverter/New China Energy Label Level 3) (<a name="xiaomi-aircondition-mc8">xiaomi.aircondition.mc8</a>) Channels
@@ -3661,7 +3663,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Ultra Electricity Saving Vertical Air Conditioner(2HP/Inverter/New China Energy Label Level 3) (<a name="xiaomi-aircondition-mc9">xiaomi.aircondition.mc9</a>) Channels
@@ -3685,7 +3687,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Ultra Electricity Saving Vertical Air Conditioner (2HP/Inverter/New China Energy Label Level 1) (<a name="xiaomi-aircondition-c10">xiaomi.aircondition.c10</a>) Channels
@@ -3709,7 +3711,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Ultra Electricity Saving Vertical Air Conditioner (3HP/Inverter/New China Energy Label Level 1) (<a name="xiaomi-aircondition-c11">xiaomi.aircondition.c11</a>) Channels
@@ -3733,7 +3735,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Air Conditioner C (1HP / Inverter / New China Energy Label Level 1) (<a name="xiaomi-aircondition-mh1">xiaomi.aircondition.mh1</a>) Channels
@@ -3757,7 +3759,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Air Conditioner C (1.5HP / Inverter / New China Energy Label Level 1) (<a name="xiaomi-aircondition-mh2">xiaomi.aircondition.mh2</a>) Channels
@@ -3781,7 +3783,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Ultra Electricity Saving Air Conditioner(1HP/Inverter/New China Energy Label Level 3) (<a name="xiaomi-aircondition-mh3">xiaomi.aircondition.mh3</a>) Channels
@@ -3805,7 +3807,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Air Conditioner X (1HP / Inverter / New China Energy Label Level 1) (<a name="xiaomi-aircondition-mt1">xiaomi.aircondition.mt1</a>) Channels
@@ -3829,7 +3831,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Air Conditioner X (1.5HP / Inverter / New China Energy Label Level 1) (<a name="xiaomi-aircondition-mt2">xiaomi.aircondition.mt2</a>) Channels
@@ -3853,7 +3855,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Gentle Breeze Air Conditioner (1HP / Inverter / New China Energy Label Level 1) (<a name="xiaomi-aircondition-mt3">xiaomi.aircondition.mt3</a>) Channels
@@ -3877,7 +3879,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Gentle Breeze Air Conditioner (1.5HP / Inverter / New China Energy Label Level 1) (<a name="xiaomi-aircondition-mt4">xiaomi.aircondition.mt4</a>) Channels
@@ -3901,7 +3903,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Gentle Breeze Vertical Air Conditioner (3HP / Inverter / New China Energy Label Level 1) (<a name="xiaomi-aircondition-mt5">xiaomi.aircondition.mt5</a>) Channels
@@ -3925,7 +3927,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Ultra Electricity Saving Air Conditioner (1HP/Inverter/New China Energy Label Level 1) (<a name="xiaomi-aircondition-mt7">xiaomi.aircondition.mt7</a>) Channels
@@ -3949,7 +3951,7 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
 
 ### Mi Smart Ultra Electricity Saving Air Conditioner (1.5HP/Inverter/New China Energy Label Level 1) (<a name="xiaomi-aircondition-mt8">xiaomi.aircondition.mt8</a>) Channels
@@ -3973,8 +3975,57 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | clean                      | String               | Maintenance - Clean                      |            |
 | examine                    | String               | Maintenance - Examine                    |            |
 | running-duration           | Number:Time          | Maintenance - Running Duration           |            |
-| fan-percent                | Number:Dimentionless | Fan Speed %                              |            |
+| fan-percent                | Number:Dimensionless | Fan Speed %                              |            |
 | timer                      | String               | Enhance - Timer                          |            |
+
+### Xiaomi Robot Vacuum S20+ (<a name="xiaomi-vacuum-b108gl">xiaomi.vacuum.b108gl</a>) Channels
+
+| Channel                    | Type                 | Description                              | Comment    |
+|----------------------------|----------------------|------------------------------------------|------------|
+| actions                    | String               | Actions                                  | Value mapping `["vacuum-start-sweep"="Start Cleaning","vacuum-stop-sweeping"="Stop Cleaning","vacuum-start-only-sweep"="Start Vacuuming Only","vacuum-start-mop"="Start Mopping Only","vacuum-start-sweep-mop"="Start Vacuuming And Mopping","vacuum-pause-sweeping"="Pause","vacuum-start-build-map"="Start Mapping","battery-start-charge"="Go Charging","main-brush-reset-brush-life"="Reset Main Brush Life","side-brush-reset-brush-life"="Reset Side Brush Life","filter-reset-filter-life"="Reset Filter Life","mop-reset-mop-life"="Reset Mop Life","vacuum-extend-continue-sweep"="Resume Cleaning","vacuum-extend-remote-control"="Start Remote Control","vacuum-extend-find-vacuum"="Find Robot","vacuum-extend-start-custom-sweep"="Start Custom Cleaning","vacuum-extend-try-listen"="Test Voice","vacuum-extend-start-remote-up"="Remote Control Forward","vacuum-extend-start-remote-left"="Remote Control Left","vacuum-extend-start-remote-right"="Remote Control Right","vacuum-extend-start-remote-down"="Remote Control Backward","vacuum-extend-stop-remote"="Remote Control Stop","vacuum-extend-exit-remote"="Exit Remote Control","vacuum-extend-stop-and-gocharge"="Stop And Go Charging","vacuum-map-save-permanent-map"="Save Map","vacuum-map-auto-room-partition"="Auto Room Partition"]` |
+| status                     | Number               | Robot Cleaner - Status                   | Value mapping `["1"="Idle","2"="Charging","3"="Charging (Cleaning Paused)","4"="Sweeping","5"="Paused","6"="Go Charging","7"="Remote","8"="Charged","9"="Mapping","10"="Updating"]` |
+| fault                      | Number               | Robot Cleaner - Device Fault             |            |
+| sweep_mop_type             | Number               | Robot Cleaner - Sweep Mop Type           | Value mapping `["1"="Sweep","2"="Mop","3"="Sweep Mop","4"="Sweep Before Mopping"]` |
+| sweep_type                 | Number               | Robot Cleaner - Sweep Type               | Value mapping `["1"="Global","5"="Mapping","6"="Go Charging","7"="Remote Control","8"="Room Cleaning","9"="Custom Cleaning","4"="Zone Cleaning"]` |
+| cleaning_area              | Number:Area          | Robot Cleaner - Cleaning Area            |            |
+| cleaning_time              | Number:Time          | Robot Cleaner - Cleaning Time            |            |
+| clean_times                | Number               | Robot Cleaner - Clean Times              | Value mapping `["1"="Once","2"="Twice"]` |
+| suction_level              | Number               | Robot Cleaner - Suction Level            | Value mapping `["1"="Silent","2"="Basic","3"="Strong","4"="Full Speed"]` |
+| mop_water_output_level     | Number               | Robot Cleaner - Mop Water Output Level   | Value mapping `["0"="Off","1"="Level 1","2"="Level 2","3"="Level 3"]` |
+| zone_ids                   | String               | Robot Cleaner - Zone IDs                 |            |
+| mode                       | Number               | Robot Cleaner - Mode                     | Value mapping `["1"="Silent","2"="Basic","3"="Strong"]` |
+| edge_swing_tail_sweep      | Switch               | Robot Cleaner - Edge Swing Tail Sweep    |            |
+| edge_sweep_frequency       | Number               | Robot Cleaner - Edge Sweep Frequency     | Value mapping `["1"="Every 7 Cleanings","2"="Every Cleaning"]` |
+| notice                     | String               | Robot Cleaner - Notice                   |            |
+| carpet_cleaning_method     | Number               | Robot Cleaner - Carpet Cleaning Method   | Value mapping `["0"="Adaptive","1"="Avoid","2"="Ignore"]` |
+| carpet_discriminate        | Switch               | Robot Cleaner - Carpet Detection         |            |
+| battery_level              | Number:Dimensionless | Battery - Battery Level                  |            |
+| charging_state             | Number               | Battery - Charging State                 | Value mapping `["1"="Charging","2"="Not Charging","3"="Not Chargeable"]` |
+| voltage                    | Number               | Battery - Voltage                        |            |
+| alarm                      | Switch               | Alarm - Enabled                          |            |
+| volume                     | Number:Dimensionless | Alarm - Volume                           |            |
+| physical_controls_locked   | Switch               | Child Lock                               |            |
+| current_physical_control_lock | Switch               | Child Lock - Current State               |            |
+| brush_left_time            | Number:Time          | Main Brush - Brush Left Time             |            |
+| brush_life_level           | Number:Dimensionless | Main Brush - Brush Life Level            |            |
+| brush_left_time1           | Number:Time          | Side Brush - Brush Left Time             |            |
+| brush_life_level1          | Number:Dimensionless | Side Brush - Brush Life Level            |            |
+| filter_left_time           | Number:Time          | Filter - Filter Left Time                |            |
+| filter_life_level          | Number:Dimensionless | Filter - Filter Life Level               |            |
+| mop_left_time              | Number:Time          | Mop - Mop Left Time                      |            |
+| mop_life_level             | Number:Dimensionless | Mop - Mop Life Level                     |            |
+| mop_status                 | Switch               | Vacuum Extend - Mop Attached             |            |
+| firmware_version           | String               | Vacuum Extend - Firmware Version         |            |
+| dnd_switch                 | Switch               | Vacuum Extend - Do Not Disturb           |            |
+| carpet_boost               | Switch               | Vacuum Extend - Carpet Boost             |            |
+| carpet_avoidance           | Switch               | Vacuum Extend - Carpet Avoidance         |            |
+| carpet_display             | Switch               | Vacuum Extend - Carpet Display           |            |
+| status_extend              | Number               | Vacuum Extend - Status Extend            | Value mapping `["0"="None","1"="Sleep","2"="Relocation"]` |
+| room_info                  | String               | Vacuum Extend - Room Info                |            |
+| sweep_break_switch         | Switch               | Vacuum Extend - Resume After Charging    |            |
+| vacuum_position            | String               | Vacuum Map - Vacuum Position             |            |
+| permanent_map_id           | Number               | Vacuum Map - Permanent Map Id            |            |
+| map_control_switch         | Switch               | Vacuum Map - Map Control Switch          |            |
 
 ### Xiaomi Robot Vacuum X20+ (<a name="xiaomi-vacuum-c102gl">xiaomi.vacuum.c102gl</a>) Channels
 
@@ -4632,6 +4683,33 @@ Note, not all the values need to be in the json file, e.g. a subset of the param
 | colorTemperature           | Number               | Color Temperature                        |            |
 | colorMode                  | Number               | Color Mode                               | Note, currently only supporting switching to RGB or CT mode. Value mapping `["0"="Default","2"="CT mode","1"="RGB mode","3"="HSV mode","4"="Color Flow mode","5"="Night Light mode"]` |
 | name                       | String               | Name                                     |            |
+
+### Yeelight Smart Ceiling Fan S2001 (<a name="yeelink-light-fancl2">yeelink.light.fancl2</a>) Channels
+
+| Channel                    | Type                 | Description                              | Comment    |
+|----------------------------|----------------------|------------------------------------------|------------|
+| actions                    | String               | Actions                                  | Value mapping `["light-toggle"="Light Toggle","fan-toggle"="Fan Toggle","yl-light-brightness-cycle"="Light Brightness Cycle","yl-light-ct-cycle"="Light Color Temperature Cycle","yl-light-fan-gears-cycle"="Fan Level Cycle (Light Service)","yl-light-birghtness-increase"="Light Brightness Increase","yl-light-brightness-decrease"="Light Brightness Decrease","yl-light-ct-increase"="Light Color Temperature Increase","yl-light-ct-decrease"="Light Color Temperature Decrease","yl-light-on-or-bright-cycle"="Light On Or Brightness Cycle","yl-light-on-or-ct-cycle"="Light On Or Color Temperature Cycle","yl-fan-fan-gears-cycle"="Fan Level Cycle"]` |
+| on                         | Switch               | Light - Power                            |            |
+| mode                       | Number               | Light - Mode                             | Value mapping `["0"="Day","1"="Night"]` |
+| brightness                 | Dimmer               | Light - Brightness                       |            |
+| color_temperature          | Number:Temperature   | Light - Color Temperature                |            |
+| flow                       | Number               | Light - Flow                             | Value mapping `["0"="Auto"]` |
+| off_delay_time             | Number:Time          | Light - Power Off Delay Time             |            |
+| left_time                  | Number:Time          | Light - Left Time                        |            |
+| on1                        | Switch               | Fan - Power                              |            |
+| fan_level                  | Number               | Fan - Level                              | Value mapping `["0"="Level 1","1"="Level 2","2"="Level 3","3"="Level 4"]` |
+| mode1                      | Number               | Fan - Mode                               | Value mapping `["0"="Normal Wind","1"="Natural Wind","2"="Reverse Wind","3"="Strong Wind","4"="Gentle Wind","5"="Sleep Wind"]` |
+| status                     | Number               | Fan - Status                             | Value mapping `["0"="Idle","1"="Busy"]` |
+| fault                      | Number               | Fan - Device Fault                       | Value mapping `["0"="No faults"]` |
+| off_delay_time1            | Number:Time          | Fan - Power Off Delay Time               |            |
+| left_time1                 | Number:Time          | Fan - Left Time                          |            |
+| init_power_opt             | Number               | Light - Power-On State                   | Value mapping `["1"="On","2"="Off"]` |
+| smart_switch_en            | Switch               | Light - Wall Switch Control              |            |
+| miband_sleep_ctrl          | Number               | Light - Mi Band Sleep Control            | Value mapping `["0"="Mi Band Control Off","1"="Turn Off Light When Asleep","2"="Turn Off Fan When Asleep","3"="Turn Off Light And Fan When Asleep","4"="Sleep Wind Mode When Asleep","5"="Turn Off Light And Sleep Wind Mode When Asleep"]` |
+| fan_init_power_opt         | Number               | Fan - Power-On State                     | Value mapping `["0"="Off","1"="On"]` |
+| smart_switch_en1           | Switch               | Fan - Wall Switch Control                |            |
+| fan_speed                  | Number:Dimensionless | Fan - Speed                              |            |
+| sleep_delay_off            | Number:Time          | Fan - Sleep Delay Off                    |            |
 
 ### Mi LED Desk Lamp (<a name="yeelink-light-lamp1">yeelink.light.lamp1</a>) Channels
 
@@ -6719,7 +6797,7 @@ Number:Temperature temperature "Temperature" (G_plug) {channel="miio:basic:plug:
 Number:Time working_time "Working Time" (G_plug) {channel="miio:basic:plug:working-time"}
 Switch on1 "Indicator Light - Switch Status" (G_plug) {channel="miio:basic:plug:on1"}
 Number:Energy power_consumption "Daily Power Consumption" (G_plug) {channel="miio:basic:plug:power-consumption"}
-Number:Current electric_current "Power Consumption - Electric Current" (G_plug) {channel="miio:basic:plug:electric-current"}
+Number:ElectricCurrent electric_current "Power Consumption - Electric Current" (G_plug) {channel="miio:basic:plug:electric-current"}
 Number:ElectricPotential voltage "Power Consumption - Voltage" (G_plug) {channel="miio:basic:plug:voltage"}
 Number:Power electric_power "Current Power Consumption - Electric Power" (G_plug) {channel="miio:basic:plug:electric-power"}
 Number:Time on_duration "Imilab Timer - On Duration" (G_plug) {channel="miio:basic:plug:on-duration"}
@@ -8110,7 +8188,7 @@ Switch alarm "Alarm" (G_vacuum) {channel="miio:basic:vacuum:alarm"}
 Number:Dimensionless volume "Locating Volume" (G_vacuum) {channel="miio:basic:vacuum:volume"}
 Switch repeat_state "Sweep - Repeat State" (G_vacuum) {channel="miio:basic:vacuum:repeat_state"}
 Number door_state "Sweep - Door State" (G_vacuum) {channel="miio:basic:vacuum:door_state"}
-Contact cloth_state "Sweep - Cloth State" (G_vacuum) {channel="miio:basic:vacuum:cloth_state"}
+Switch cloth_state "Sweep - Cloth State" (G_vacuum) {channel="miio:basic:vacuum:cloth_state"}
 Number suction_state "Robot Cleaner - Power" (G_vacuum) {channel="miio:basic:vacuum:suction_state"}
 Number water_state "Sweep - Water State" (G_vacuum) {channel="miio:basic:vacuum:water_state"}
 Number mop_route "Sweep - Mop Route" (G_vacuum) {channel="miio:basic:vacuum:mop_route"}
@@ -8155,7 +8233,7 @@ String cur_cleaning_path "Map - Cur Cleaning Path" (G_vacuum) {channel="miio:bas
 Number build_map "Map - Build Map" (G_vacuum) {channel="miio:basic:vacuum:build_map"}
 Number has_new_map "Map - Has New Map" (G_vacuum) {channel="miio:basic:vacuum:has_new_map"}
 Number map_uploads "Map - Map Uploads" (G_vacuum) {channel="miio:basic:vacuum:map_uploads"}
-Contact dnd_enable "Disturb - Dnd Enable" (G_vacuum) {channel="miio:basic:vacuum:dnd_enable"}
+Switch dnd_enable "Disturb - Dnd Enable" (G_vacuum) {channel="miio:basic:vacuum:dnd_enable"}
 Number:Time dnd_start_hour "Disturb - Dnd Start Hour" (G_vacuum) {channel="miio:basic:vacuum:dnd_start_hour"}
 Number:Time dnd_start_minute "Disturb - Dnd Start Minute" (G_vacuum) {channel="miio:basic:vacuum:dnd_start_minute"}
 Number:Time dnd_end_hour "Disturb - Dnd End Hour" (G_vacuum) {channel="miio:basic:vacuum:dnd_end_hour"}
@@ -8181,7 +8259,7 @@ Switch alarm "Robot Cleaner - Locate" (G_vacuum) {channel="miio:basic:vacuum:ala
 Number:Dimensionless volume "Robot Cleaner - Locate Volume" (G_vacuum) {channel="miio:basic:vacuum:volume"}
 Switch repeat_state "Sweep - Repeat State" (G_vacuum) {channel="miio:basic:vacuum:repeat_state"}
 Number door_state "Sweep - Door State" (G_vacuum) {channel="miio:basic:vacuum:door_state"}
-Contact cloth_state "Sweep - Cloth State" (G_vacuum) {channel="miio:basic:vacuum:cloth_state"}
+Switch cloth_state "Sweep - Cloth State" (G_vacuum) {channel="miio:basic:vacuum:cloth_state"}
 Number suction_state "Robot Cleaner - Power" (G_vacuum) {channel="miio:basic:vacuum:suction_state"}
 Number water_state "Sweep - Water State" (G_vacuum) {channel="miio:basic:vacuum:water_state"}
 Number mop_route "Sweep - Mop Route" (G_vacuum) {channel="miio:basic:vacuum:mop_route"}
@@ -8206,7 +8284,7 @@ String multi_prop_vacuum "Sweep - Multi Prop Vacuum" (G_vacuum) {channel="miio:b
 Switch carpet_avoid "Sweep - Carpet Avoid" (G_vacuum) {channel="miio:basic:vacuum:carpet_avoid"}
 Switch tank_shake "Sweep - Tank Shake" (G_vacuum) {channel="miio:basic:vacuum:tank_shake"}
 Number shake_shift "Sweep - Shake Shift" (G_vacuum) {channel="miio:basic:vacuum:shake_shift"}
-Contact map_encrypt "Sweep - Map Encrypt" (G_vacuum) {channel="miio:basic:vacuum:map_encrypt"}
+Switch map_encrypt "Sweep - Map Encrypt" (G_vacuum) {channel="miio:basic:vacuum:map_encrypt"}
 Number order_id "Order - Order Id" (G_vacuum) {channel="miio:basic:vacuum:order_id"}
 Switch enable "Order - Enable" (G_vacuum) {channel="miio:basic:vacuum:enable"}
 Number:Time day "Order - Day" (G_vacuum) {channel="miio:basic:vacuum:day"}
@@ -8230,8 +8308,8 @@ Number cur_map_id "Map - Cur Map Id" (G_vacuum) {channel="miio:basic:vacuum:cur_
 Number map_num "Map - Map Num" (G_vacuum) {channel="miio:basic:vacuum:map_num"}
 String cur_cleaning_path "Map - Cur Cleaning Path" (G_vacuum) {channel="miio:basic:vacuum:cur_cleaning_path"}
 Number build_map "Map - Build Map" (G_vacuum) {channel="miio:basic:vacuum:build_map"}
-Contact has_new_map "Map - Has New Map" (G_vacuum) {channel="miio:basic:vacuum:has_new_map"}
-Contact dnd_enable "Disturb - Dnd Enable" (G_vacuum) {channel="miio:basic:vacuum:dnd_enable"}
+Switch has_new_map "Map - Has New Map" (G_vacuum) {channel="miio:basic:vacuum:has_new_map"}
+Switch dnd_enable "Disturb - Dnd Enable" (G_vacuum) {channel="miio:basic:vacuum:dnd_enable"}
 Number:Time dnd_start_hour "Disturb - Dnd Start Hour" (G_vacuum) {channel="miio:basic:vacuum:dnd_start_hour"}
 Number:Time dnd_start_minute "Disturb - Dnd Start Minute" (G_vacuum) {channel="miio:basic:vacuum:dnd_start_minute"}
 Number:Time dnd_end_hour "Disturb - Dnd End Hour" (G_vacuum) {channel="miio:basic:vacuum:dnd_end_hour"}
@@ -9833,7 +9911,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -9860,7 +9938,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -9887,7 +9965,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -9914,7 +9992,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -9941,7 +10019,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -9968,7 +10046,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -9995,7 +10073,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -10022,7 +10100,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -10049,7 +10127,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -10076,7 +10154,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -10103,7 +10181,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -10130,7 +10208,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -10157,7 +10235,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -10184,7 +10262,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -10211,7 +10289,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -10238,7 +10316,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -10265,7 +10343,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -10292,7 +10370,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -10319,7 +10397,7 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
 ```
 
@@ -10346,8 +10424,60 @@ Number elec_count "Electricity - Count" (G_aircondition) {channel="miio:basic:ai
 String clean "Maintenance - Clean" (G_aircondition) {channel="miio:basic:aircondition:clean"}
 String examine "Maintenance - Examine" (G_aircondition) {channel="miio:basic:aircondition:examine"}
 Number:Time running_duration "Maintenance - Running Duration" (G_aircondition) {channel="miio:basic:aircondition:running-duration"}
-Number:Dimentionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
+Number:Dimensionless fan_percent "Fan Speed %" (G_aircondition) {channel="miio:basic:aircondition:fan-percent"}
 String timer "Enhance - Timer" (G_aircondition) {channel="miio:basic:aircondition:timer"}
+```
+
+### Xiaomi Robot Vacuum S20+ (xiaomi.vacuum.b108gl) item file lines
+
+note: Autogenerated example. Replace the id (vacuum) in the channel with your own. Replace `basic` with `generic` in the Thing UID depending on how your Thing was discovered.
+
+```java
+Group G_vacuum "Xiaomi Robot Vacuum S20+" <status>
+String actions "Actions" (G_vacuum) {channel="miio:basic:vacuum:actions"}
+Number status "Robot Cleaner - Status" (G_vacuum) {channel="miio:basic:vacuum:status"}
+Number fault "Robot Cleaner - Device Fault" (G_vacuum) {channel="miio:basic:vacuum:fault"}
+Number sweep_mop_type "Robot Cleaner - Sweep Mop Type" (G_vacuum) {channel="miio:basic:vacuum:sweep_mop_type"}
+Number sweep_type "Robot Cleaner - Sweep Type" (G_vacuum) {channel="miio:basic:vacuum:sweep_type"}
+Number:Area cleaning_area "Robot Cleaner - Cleaning Area" (G_vacuum) {channel="miio:basic:vacuum:cleaning_area"}
+Number:Time cleaning_time "Robot Cleaner - Cleaning Time" (G_vacuum) {channel="miio:basic:vacuum:cleaning_time"}
+Number clean_times "Robot Cleaner - Clean Times" (G_vacuum) {channel="miio:basic:vacuum:clean_times"}
+Number suction_level "Robot Cleaner - Suction Level" (G_vacuum) {channel="miio:basic:vacuum:suction_level"}
+Number mop_water_output_level "Robot Cleaner - Mop Water Output Level" (G_vacuum) {channel="miio:basic:vacuum:mop_water_output_level"}
+String zone_ids "Robot Cleaner - Zone IDs" (G_vacuum) {channel="miio:basic:vacuum:zone_ids"}
+Number mode "Robot Cleaner - Mode" (G_vacuum) {channel="miio:basic:vacuum:mode"}
+Switch edge_swing_tail_sweep "Robot Cleaner - Edge Swing Tail Sweep" (G_vacuum) {channel="miio:basic:vacuum:edge_swing_tail_sweep"}
+Number edge_sweep_frequency "Robot Cleaner - Edge Sweep Frequency" (G_vacuum) {channel="miio:basic:vacuum:edge_sweep_frequency"}
+String notice "Robot Cleaner - Notice" (G_vacuum) {channel="miio:basic:vacuum:notice"}
+Number carpet_cleaning_method "Robot Cleaner - Carpet Cleaning Method" (G_vacuum) {channel="miio:basic:vacuum:carpet_cleaning_method"}
+Switch carpet_discriminate "Robot Cleaner - Carpet Detection" (G_vacuum) {channel="miio:basic:vacuum:carpet_discriminate"}
+Number:Dimensionless battery_level "Battery - Battery Level" (G_vacuum) {channel="miio:basic:vacuum:battery_level"}
+Number charging_state "Battery - Charging State" (G_vacuum) {channel="miio:basic:vacuum:charging_state"}
+Number voltage "Battery - Voltage" (G_vacuum) {channel="miio:basic:vacuum:voltage"}
+Switch alarm "Alarm - Enabled" (G_vacuum) {channel="miio:basic:vacuum:alarm"}
+Number:Dimensionless volume "Alarm - Volume" (G_vacuum) {channel="miio:basic:vacuum:volume"}
+Switch physical_controls_locked "Child Lock" (G_vacuum) {channel="miio:basic:vacuum:physical_controls_locked"}
+Switch current_physical_control_lock "Child Lock - Current State" (G_vacuum) {channel="miio:basic:vacuum:current_physical_control_lock"}
+Number:Time brush_left_time "Main Brush - Brush Left Time" (G_vacuum) {channel="miio:basic:vacuum:brush_left_time"}
+Number:Dimensionless brush_life_level "Main Brush - Brush Life Level" (G_vacuum) {channel="miio:basic:vacuum:brush_life_level"}
+Number:Time brush_left_time1 "Side Brush - Brush Left Time" (G_vacuum) {channel="miio:basic:vacuum:brush_left_time1"}
+Number:Dimensionless brush_life_level1 "Side Brush - Brush Life Level" (G_vacuum) {channel="miio:basic:vacuum:brush_life_level1"}
+Number:Time filter_left_time "Filter - Filter Left Time" (G_vacuum) {channel="miio:basic:vacuum:filter_left_time"}
+Number:Dimensionless filter_life_level "Filter - Filter Life Level" (G_vacuum) {channel="miio:basic:vacuum:filter_life_level"}
+Number:Time mop_left_time "Mop - Mop Left Time" (G_vacuum) {channel="miio:basic:vacuum:mop_left_time"}
+Number:Dimensionless mop_life_level "Mop - Mop Life Level" (G_vacuum) {channel="miio:basic:vacuum:mop_life_level"}
+Switch mop_status "Vacuum Extend - Mop Attached" (G_vacuum) {channel="miio:basic:vacuum:mop_status"}
+String firmware_version "Vacuum Extend - Firmware Version" (G_vacuum) {channel="miio:basic:vacuum:firmware_version"}
+Switch dnd_switch "Vacuum Extend - Do Not Disturb" (G_vacuum) {channel="miio:basic:vacuum:dnd_switch"}
+Switch carpet_boost "Vacuum Extend - Carpet Boost" (G_vacuum) {channel="miio:basic:vacuum:carpet_boost"}
+Switch carpet_avoidance "Vacuum Extend - Carpet Avoidance" (G_vacuum) {channel="miio:basic:vacuum:carpet_avoidance"}
+Switch carpet_display "Vacuum Extend - Carpet Display" (G_vacuum) {channel="miio:basic:vacuum:carpet_display"}
+Number status_extend "Vacuum Extend - Status Extend" (G_vacuum) {channel="miio:basic:vacuum:status_extend"}
+String room_info "Vacuum Extend - Room Info" (G_vacuum) {channel="miio:basic:vacuum:room_info"}
+Switch sweep_break_switch "Vacuum Extend - Resume After Charging" (G_vacuum) {channel="miio:basic:vacuum:sweep_break_switch"}
+String vacuum_position "Vacuum Map - Vacuum Position" (G_vacuum) {channel="miio:basic:vacuum:vacuum_position"}
+Number permanent_map_id "Vacuum Map - Permanent Map Id" (G_vacuum) {channel="miio:basic:vacuum:permanent_map_id"}
+Switch map_control_switch "Vacuum Map - Map Control Switch" (G_vacuum) {channel="miio:basic:vacuum:map_control_switch"}
 ```
 
 ### Xiaomi Robot Vacuum X20+ (xiaomi.vacuum.c102gl) item file lines
@@ -11149,6 +11279,36 @@ Number:Time delayoff "Shutdown Timer" (G_light) {channel="miio:basic:light:delay
 Number colorTemperature "Color Temperature" (G_light) {channel="miio:basic:light:colorTemperature"}
 Number colorMode "Color Mode" (G_light) {channel="miio:basic:light:colorMode"}
 String name "Name" (G_light) {channel="miio:basic:light:name"}
+```
+
+### Yeelight Smart Ceiling Fan S2001 (yeelink.light.fancl2) item file lines
+
+note: Autogenerated example. Replace the id (light) in the channel with your own. Replace `basic` with `generic` in the Thing UID depending on how your Thing was discovered.
+
+```java
+Group G_light "Yeelight Smart Ceiling Fan S2001" <status>
+String actions "Actions" (G_light) {channel="miio:basic:light:actions"}
+Switch on "Light - Power" (G_light) {channel="miio:basic:light:on"}
+Number mode "Light - Mode" (G_light) {channel="miio:basic:light:mode"}
+Dimmer brightness "Light - Brightness" (G_light) {channel="miio:basic:light:brightness"}
+Number:Temperature color_temperature "Light - Color Temperature" (G_light) {channel="miio:basic:light:color_temperature"}
+Number flow "Light - Flow" (G_light) {channel="miio:basic:light:flow"}
+Number:Time off_delay_time "Light - Power Off Delay Time" (G_light) {channel="miio:basic:light:off_delay_time"}
+Number:Time left_time "Light - Left Time" (G_light) {channel="miio:basic:light:left_time"}
+Switch on1 "Fan - Power" (G_light) {channel="miio:basic:light:on1"}
+Number fan_level "Fan - Level" (G_light) {channel="miio:basic:light:fan_level"}
+Number mode1 "Fan - Mode" (G_light) {channel="miio:basic:light:mode1"}
+Number status "Fan - Status" (G_light) {channel="miio:basic:light:status"}
+Number fault "Fan - Device Fault" (G_light) {channel="miio:basic:light:fault"}
+Number:Time off_delay_time1 "Fan - Power Off Delay Time" (G_light) {channel="miio:basic:light:off_delay_time1"}
+Number:Time left_time1 "Fan - Left Time" (G_light) {channel="miio:basic:light:left_time1"}
+Number init_power_opt "Light - Power-On State" (G_light) {channel="miio:basic:light:init_power_opt"}
+Switch smart_switch_en "Light - Wall Switch Control" (G_light) {channel="miio:basic:light:smart_switch_en"}
+Number miband_sleep_ctrl "Light - Mi Band Sleep Control" (G_light) {channel="miio:basic:light:miband_sleep_ctrl"}
+Number fan_init_power_opt "Fan - Power-On State" (G_light) {channel="miio:basic:light:fan_init_power_opt"}
+Switch smart_switch_en1 "Fan - Wall Switch Control" (G_light) {channel="miio:basic:light:smart_switch_en1"}
+Number:Dimensionless fan_speed "Fan - Speed" (G_light) {channel="miio:basic:light:fan_speed"}
+Number:Time sleep_delay_off "Fan - Sleep Delay Off" (G_light) {channel="miio:basic:light:sleep_delay_off"}
 ```
 
 ### Mi LED Desk Lamp (yeelink.light.lamp1) item file lines
