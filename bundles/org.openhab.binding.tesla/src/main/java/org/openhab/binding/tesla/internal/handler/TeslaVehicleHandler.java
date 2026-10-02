@@ -584,7 +584,7 @@ public class TeslaVehicleHandler extends BaseThingHandler {
         int computedInactivityPeriod = inactivity;
         VehicleState vehicleState = this.vehicleState;
         if (useAdvancedStates) {
-            if (vehicleState != null && vehicleState.isUserPresent && !isInMotion()) {
+            if (vehicleState != null && Boolean.TRUE.equals(vehicleState.isUserPresent) && !isInMotion()) {
                 logger.debug("Car is occupied but stationary.");
                 if (lastAdvModesTimestamp < (System.currentTimeMillis()
                         - (THRESHOLD_INTERVAL_FOR_ADVANCED_MINUTES * 60 * 1000))) {
@@ -964,9 +964,13 @@ public class TeslaVehicleHandler extends BaseThingHandler {
                     }
 
                     ClimateState climateState = this.climateState = vehicleData.climateState;
-                    BigDecimal avgtemp = roundBigDecimal(new BigDecimal(
-                            (climateState.passengerTempSetting + climateState.passengerTempSetting) / 2.0f));
-                    updateState(CHANNEL_COMBINED_TEMP, new QuantityType<>(avgtemp, SIUnits.CELSIUS));
+                    updateState(CHANNEL_COMBINED_TEMP,
+                            new QuantityType<>(combinedTemperature(climateState), SIUnits.CELSIUS));
+
+                    OnOffType tirePressureWarning = tirePressureWarning(vehicleState);
+                    if (tirePressureWarning != null) {
+                        updateState(CHANNEL_TIRE_PRESSURE_WARNING, tirePressureWarning);
+                    }
 
                     SoftwareUpdate softwareUpdate = this.softwareUpdate = vehicleState.softwareUpdate;
 
@@ -1068,7 +1072,34 @@ public class TeslaVehicleHandler extends BaseThingHandler {
         return json;
     }
 
-    protected BigDecimal roundBigDecimal(BigDecimal value) {
+    /**
+     * The average of the driver and passenger temperature settings, as described for the combinedtemp channel.
+     */
+    static BigDecimal combinedTemperature(ClimateState climateState) {
+        return roundBigDecimal(
+                new BigDecimal((climateState.driverTempSetting + climateState.passengerTempSetting) / 2.0f));
+    }
+
+    /**
+     * Combines the soft and hard pressure warnings of all tires. Returns null if the vehicle reports none of them.
+     */
+    static @Nullable OnOffType tirePressureWarning(VehicleState vehicleState) {
+        Boolean[] warnings = { vehicleState.tpmsSoftWarningFl, vehicleState.tpmsSoftWarningFr,
+                vehicleState.tpmsSoftWarningRl, vehicleState.tpmsSoftWarningRr, vehicleState.tpmsHardWarningFl,
+                vehicleState.tpmsHardWarningFr, vehicleState.tpmsHardWarningRl, vehicleState.tpmsHardWarningRr };
+        boolean reported = false;
+        for (Boolean warning : warnings) {
+            if (warning != null) {
+                if (warning) {
+                    return OnOffType.ON;
+                }
+                reported = true;
+            }
+        }
+        return reported ? OnOffType.OFF : null;
+    }
+
+    protected static BigDecimal roundBigDecimal(BigDecimal value) {
         return value.setScale(1, RoundingMode.HALF_EVEN);
     }
 
